@@ -10,7 +10,6 @@ export function useLocation() {
     async function getPosition() {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("hej");
         return null;
       }
       setLocation(await Location.getCurrentPositionAsync());
