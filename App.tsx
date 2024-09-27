@@ -1,17 +1,29 @@
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { API_KEY } from "@env";
-import { useEffect, useState } from "react";
-import React from "react";
-import { useLocation } from "./useLocation";
+import { useLocation } from "./hooks/useLocation";
+import { useWeather } from "./hooks/useWeather";
 
 export default function App() {
   const location = useLocation();
-  const url = `https://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=${API_KEY}`;
+  const weatherData = useWeather(
+    location?.coords.latitude ?? null,
+    location?.coords.longitude ?? null
+  );
+
+  function kelvinToCelcius(kelvin: number) {
+    return kelvin - 273.15;
+  }
 
   return (
     <View style={styles.container}>
-      {location ? <Text>alt{location.coords.altitude}</Text>: <Text>Hämtar location</Text>}
+      {weatherData ? <Text>{weatherData.city.name}</Text> : <Text>L</Text>}
+      {weatherData ? (
+        <Text>{kelvinToCelcius(weatherData.list[0].main.temp)}</Text>
+      ) : (
+        <Text>L</Text>
+      )}
+
       <StatusBar style="auto" />
     </View>
   );
