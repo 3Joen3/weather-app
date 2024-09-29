@@ -12,7 +12,7 @@ import SearchBar from "./components/SearchBar";
 
 export default function App() {
   const location = useLocation();
-  const weatherData = useWeather(
+  const { weatherData, fetchWeatherDataByCity } = useWeather(
     location?.coords.latitude ?? null,
     location?.coords.longitude ?? null
   );
@@ -30,6 +30,7 @@ export default function App() {
           buttonBackground="rgba(52, 52, 52, 0.1)"
           borderColor="#ccc"
           placeholderColor="#999"
+          onSubmit={fetchWeatherDataByCity}
         />
         <StatusBar style="auto" />
       </View>

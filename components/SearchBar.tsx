@@ -1,5 +1,11 @@
-import React from "react";
-import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 interface Props {
@@ -8,6 +14,7 @@ interface Props {
   iconColor: string;
   buttonBackground: string;
   borderColor: string;
+  onSubmit: (searchTerm: string) => Promise<void>;
 }
 
 export default function SearchBar({
@@ -16,19 +23,26 @@ export default function SearchBar({
   iconColor,
   buttonBackground,
   borderColor,
+  onSubmit,
 }: Props) {
+  const [text, onChangeText] = useState("");
+
   return (
     <View style={[styles.container, { borderColor: borderColor }]}>
       <TextInput
         style={styles.input}
         placeholder={placeholder}
         placeholderTextColor={placeholderColor}
+        onChangeText={onChangeText}
+        value={text}
       />
       <TouchableOpacity
+        onPress={() => onSubmit(text)}
         style={[styles.button, { backgroundColor: buttonBackground }]}
       >
         <FontAwesome name="search" size={24} color={iconColor} />
       </TouchableOpacity>
+      <Text>{text}</Text>
     </View>
   );
 }
