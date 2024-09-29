@@ -1,8 +1,14 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { useLocation } from "./hooks/useLocation";
 import { useWeather } from "./hooks/useWeather";
+import SearchBar from "./components/SearchBar";
 
 export default function App() {
   const location = useLocation();
@@ -16,16 +22,18 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      {weatherData ? <Text>{weatherData.city.name}</Text> : <Text>L</Text>}
-      {weatherData ? (
-        <Text>{kelvinToCelcius(weatherData.list[0].main.temp)}</Text>
-      ) : (
-        <Text>L</Text>
-      )}
-
-      <StatusBar style="auto" />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <SearchBar
+          placeholder="Sök Stad"
+          iconColor="black"
+          buttonBackground="rgba(52, 52, 52, 0.1)"
+          borderColor="#ccc"
+          placeholderColor="#999"
+        />
+        <StatusBar style="auto" />
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
