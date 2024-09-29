@@ -34,6 +34,7 @@ export default function SearchBar({
         placeholder={placeholder}
         placeholderTextColor={placeholderColor}
         onChangeText={onChangeText}
+        onSubmitEditing={() => onSubmit(text)}
         value={text}
       />
       <TouchableOpacity
@@ -42,7 +43,6 @@ export default function SearchBar({
       >
         <FontAwesome name="search" size={24} color={iconColor} />
       </TouchableOpacity>
-      <Text>{text}</Text>
     </View>
   );
 }
