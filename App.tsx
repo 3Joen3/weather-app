@@ -5,6 +5,8 @@ import {
   StyleSheet,
   Keyboard,
   TouchableWithoutFeedback,
+  Pressable,
+  Text
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocation } from "./hooks/useLocation";
@@ -19,10 +21,6 @@ export default function App() {
     location?.coords.longitude ?? null
   );
 
-  function kelvinToCelcius(kelvin: number) {
-    return kelvin - 273.15;
-  }
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <LinearGradient
@@ -33,7 +31,8 @@ export default function App() {
       >
         <View style={styles.container}>
           <SearchBar placeholder="Sök Stad" onSubmit={fetchWeatherDataByCity} />
-          <WeatherView city="Borås" degrees={34} />
+          <WeatherView city={weatherData?.city} degrees={weatherData?.forecasts[0].degreesCelsius} icon={weatherData?.forecasts[0].iconUrl} />
+          <Pressable onPress={() => console.log(weatherData)}><Text>Logga</Text></Pressable>
         </View>
         <StatusBar style="dark" />
       </LinearGradient>

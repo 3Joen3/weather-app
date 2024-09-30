@@ -4,14 +4,15 @@ import { View, StyleSheet, Image, Text } from "react-native";
 interface Props{
     city: string,
     degrees: number,
+    icon: string
 }
 
-export default function WeatherView({city, degrees}:Props) {
-  const url = "https://openweathermap.org/img/wn/10d@2x.png";
+export default function WeatherView({city, degrees, icon}:Props) {
+  const iconUri = `https://openweathermap.org/img/wn/${icon}@2x.png`
   return <View style={styles.container}>
     <Text style={styles.text}>{city}</Text>
     <Text style={styles.text}>{degrees}º</Text>
-    <Image style={styles.icon} source={{uri: url}}/>
+    <Image style={styles.icon} source={{uri: iconUri}}/>
   </View>;
 }
 
