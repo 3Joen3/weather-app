@@ -1,4 +1,4 @@
-export interface IWeatherData {
+export interface IOpenWeatherResponse {
   city: {
     name: string;
   };
@@ -19,3 +19,14 @@ export interface IWeatherData {
     pop: number;
   }[];
 }
+
+export interface IWeatherData {
+  city: string;
+  forecasts: Forecast[]
+}
+
+interface Forecast{
+  time: Date,
+  degreesCelsius: number
+}
+
