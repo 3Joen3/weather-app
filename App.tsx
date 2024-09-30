@@ -1,6 +1,7 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
+  View,
   StyleSheet,
   Keyboard,
   TouchableWithoutFeedback,
@@ -27,15 +28,13 @@ export default function App() {
       colors={["#24C6DC", "#514A9D"]}
       start={{x:0, y:0}}
       end={{x:1, y:1}}
-      style={styles.container}>
-        <SearchBar
-          placeholder="Sök Stad"
-          iconColor="white"
-          buttonBackground="black"
-          borderColor="white"
-          placeholderColor="black"
-          onSubmit={fetchWeatherDataByCity}
-        />
+      style={styles.background}>
+        <View style={styles.container}>
+          <SearchBar
+            placeholder="Sök Stad"
+            onSubmit={fetchWeatherDataByCity}
+          />
+        </View>
         <StatusBar style="auto" />
       </LinearGradient>
     </TouchableWithoutFeedback>
@@ -43,9 +42,12 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
+  container:{
+    width: "90%"
+  }
 });
