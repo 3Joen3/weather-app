@@ -10,6 +10,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useLocation } from "./hooks/useLocation";
 import { useWeather } from "./hooks/useWeather";
 import SearchBar from "./components/SearchBar";
+import WeatherView from "./components/WeatherView";
 
 export default function App() {
   const location = useLocation();
@@ -25,17 +26,16 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <LinearGradient
-      colors={["#24C6DC", "#514A9D"]}
-      start={{x:0, y:0}}
-      end={{x:1, y:1}}
-      style={styles.background}>
+        colors={["#24C6DC", "#514A9D"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.background}
+      >
         <View style={styles.container}>
-          <SearchBar
-            placeholder="Sök Stad"
-            onSubmit={fetchWeatherDataByCity}
-          />
+          <SearchBar placeholder="Sök Stad" onSubmit={fetchWeatherDataByCity} />
+          <WeatherView city="Borås" degrees={34} />
         </View>
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
       </LinearGradient>
     </TouchableWithoutFeedback>
   );
@@ -47,7 +47,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  container:{
-    width: "90%"
-  }
+  container: {
+    width: "90%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "space-evenly"
+  },
 });
