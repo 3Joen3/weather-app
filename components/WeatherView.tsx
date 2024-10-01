@@ -22,6 +22,10 @@ export default function WeatherView({
         <Entypo name="location-pin" size={40} color="black" />
         <Text style={[styles.shadowText, styles.heading]}>{city}</Text>
       </View>
+      <View style={styles.weatherContainer}>
+        <Image style={styles.icon} source={{ uri: iconUri }} />
+        <Text style={[styles.temp, styles.shadowText]}>{degrees}</Text>
+      </View>
     </View>
   );
 }
@@ -30,6 +34,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flex: 1,
+    alignItems: "center",
   },
   locationContainer: {
     flexDirection: "row",
@@ -46,5 +51,18 @@ const styles = StyleSheet.create({
   heading: {
     fontWeight: "bold",
     fontSize: 40,
+  },
+  /* */
+  weatherContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    width: 80,
+    height: 80,
+  },
+  temp: {
+    fontSize: 40,
+    fontWeight: "bold",
   },
 });
