@@ -22,12 +22,12 @@ export interface IOpenWeatherResponse {
 
 export interface IWeatherData {
   city: string;
-  forecasts: Forecast[]
+  forecasts: Forecast[];
 }
 
-interface Forecast{
-  time: Date,
-  degreesCelsius: number
-  iconUrl: string
+interface Forecast {
+  time: Date;
+  degreesCelsius: number;
+  description: string;
+  iconUrl: string;
 }
-

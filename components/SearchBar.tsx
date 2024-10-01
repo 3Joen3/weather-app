@@ -50,14 +50,12 @@ export default function SearchBar({ placeholder, onSubmit }: Props) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    alignItems: "center"
+    alignItems: "center",
   },
   barContainer: {
-    borderWidth: 1,
     borderRadius: 14,
     flexDirection: "row",
     height: 50,
-    borderColor: "black",
   },
   button: {
     borderBottomRightRadius: 14,
@@ -76,8 +74,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 14,
     borderTopLeftRadius: 14,
   },
-  errorMessage:{
+  errorMessage: {
     color: "red",
-    marginTop: 5
-  }
+    marginTop: 5,
+  },
 });

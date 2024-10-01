@@ -24,14 +24,14 @@ export function useWeather(latitude: number | null, longitude: number | null) {
   return { weatherData, fetchWeatherDataByCity };
 }
 
-function mapData(apiCall: IOpenWeatherResponse): IWeatherData
-{
+function mapData(apiCall: IOpenWeatherResponse): IWeatherData {
   return {
     city: apiCall.city.name,
     forecasts: apiCall.list.map((apiForecast) => ({
       time: new Date(apiForecast.dt * 1000),
-      degreesCelsius: Math.round((apiForecast.main.temp - 273.15) / 0.5)*0.5,
-      iconUrl: apiForecast.weather[0].icon
-    }))
-  }
+      degreesCelsius: Math.round((apiForecast.main.temp - 273.15) / 0.5) * 0.5,
+      description: apiForecast.weather[0].description,
+      iconUrl: apiForecast.weather[0].icon,
+    })),
+  };
 }
