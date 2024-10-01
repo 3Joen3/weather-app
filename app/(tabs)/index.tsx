@@ -6,6 +6,8 @@ import { useLocation } from "../../hooks/useLocation";
 import { useWeather } from "../../hooks/useWeather";
 import { SafeAreaView } from "react-native-safe-area-context";
 import WeatherView from "../../components/WeatherView";
+import ForecastsView from "../../components/ForecastsView";
+import { Forecast } from "../../types";
 
 export default function Home() {
   const location = useLocation();
@@ -13,6 +15,26 @@ export default function Home() {
     location?.coords.latitude ?? null,
     location?.coords.longitude ?? null
   );
+
+  function getTodaysForecasts(forecasts: Forecast[]) {
+    return forecasts.filter((forecast) => {
+      const today = new Date();
+      return forecast.time.toLocaleDateString() === today.toLocaleDateString();
+    });
+  }
+
+  function getForecastsForNextDay(forecasts: Forecast[]) {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    return forecasts.filter((forecast) => {
+      return (
+        forecast.time.toLocaleDateString() === tomorrow.toLocaleDateString()
+      );
+    });
+  }
+
   return (
     <LinearGradient
       colors={["#E4E5E6", "#00416A"]}
@@ -26,6 +48,11 @@ export default function Home() {
             degrees={weatherData?.forecasts[0].degreesCelsius}
             description={weatherData.forecasts[0].description}
             icon={weatherData?.forecasts[0].iconUrl}
+          />
+        )}
+        {weatherData?.forecasts && (
+          <ForecastsView
+            forecasts={getForecastsForNextDay(weatherData.forecasts)}
           />
         )}
       </SafeAreaView>
