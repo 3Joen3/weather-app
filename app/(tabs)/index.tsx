@@ -52,7 +52,7 @@ export default function Home() {
         )}
         {weatherData?.forecasts && (
           <ForecastsView
-            forecasts={getForecastsForNextDay(weatherData.forecasts)}
+            forecasts={getTodaysForecasts(weatherData.forecasts)}
           />
         )}
       </SafeAreaView>
