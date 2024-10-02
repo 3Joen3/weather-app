@@ -17,6 +17,13 @@ export function useWeather(latitude: number | null, longitude: number | null) {
   }, [latitude, longitude]);
 
   async function fetchWeatherDataByCity(city: string) {
+
+    if(!city)
+    {
+      setErrorMessage("You need to provide a search term.");
+      return;
+    }
+
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`;
 
     try {
