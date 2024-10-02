@@ -1,25 +1,14 @@
-# Inlämning 1 - React Native
+# Projekt info
 
-I den här laborationen ska du individuellt skapa en nativ app med med hjälp av React
-Native (RN), Expo och Typescript. Vad du väljer att skapa är valfritt däremot ska du
-använda dig av minst 4 stycken RN komponenter och minst 4 stycken från Expo SDK’n.
-Inlämning.
+Detta är ett projekt byggt i react native med hjälp av expo. Denna app är byggd för att kunna visa väder prognoser.
+När appen öppnas hämtas användarens location och applikationen kontaktar https://openweathermap.org/api för att hämta prognoser.
+Användaren kan även söka efter en stad/ett land för att visa prognoser för den platsen.
 
-För att bli godkänd på den här uppgiften MÅSTE du använda GIT och GitHub.
-Inlämningen sker som vanligt via läroplattformen. I din projektmapp ska det finnas
-(utöver all kod) en README.md fil. Den ska innehålla en titel, beskrivning av projektet,
-info om hur projektet byggs och körs samt vilka krav som är uppfyllda. Kom ihåg att .git
-mappen måste finnas så jag kan hitta till ditt publika repo.
+# För att köra applikationen
 
-# Presentation
-
-Du ska i samband med inlämning hålla i en presentation där du för klassen presenterar
-din applikation, vilka komponenter du har använt och kort beskriva vad dom används till
-
-- här kan det var intressant att visa lite kod kring några utvalda komponenter. Du ska
-  även presentera hur du har planerat, genomfört och strukturerat ditt arbete. Dessutom ska
-  presentationen innefatta en reflekterande del. Presentationen kommer att ske i mindre
-  grupper under presentationsdagen - du kommer att ha ca 10 minuter att presentera på.
+Det behövs en api nyckel från https://openweathermap.org/api.
+Nyckeln namnges API_KEY och läggs i en .env fil.
+Kör npm install och sedan npx expo start.
 
 # Krav för Godkänt
 
@@ -53,3 +42,11 @@ SafeAreaView
 
 https://docs.expo.dev/versions/latest/sdk/location/
 https://docs.expo.dev/versions/latest/sdk/linear-gradient/
+
+# Extrena bibliotek som används
+
+?
+
+# Apier som används
+
+https://openweathermap.org/api.
