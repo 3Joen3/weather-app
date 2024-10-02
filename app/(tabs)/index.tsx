@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import SearchBar from "../../components/SearchBar";
 import { useLocation } from "../../hooks/useLocation";
 import { useWeather } from "../../hooks/useWeather";

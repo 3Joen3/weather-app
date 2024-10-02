@@ -1,22 +1,24 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Forecast } from "../types";
-import WeatherCard from "./WeatherCard";
+import ForecastCard from "./ForecastCard";
 
 interface Props {
   forecasts: Forecast[];
+  showDay?: boolean;
 }
 
-export default function ForecastsView({ forecasts }: Props) {
+export default function ForecastsView({ forecasts, showDay = false }: Props) {
   return (
     <ScrollView style={styles.container}>
       {forecasts.length > 0 ? (
         forecasts.map((item, index) => (
-          <WeatherCard
+          <ForecastCard
             key={index}
             icon={item.iconUrl}
             date={item.time}
             degrees={item.degreesCelsius}
+            showDay={showDay}
           />
         ))
       ) : (
@@ -30,6 +32,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    width: "100%", // Se till att ScrollView tar upp hela bredden
+    width: "100%",
   },
 });

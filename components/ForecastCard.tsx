@@ -5,13 +5,21 @@ interface Props {
   icon: string;
   date: Date;
   degrees: number;
+  showDay: boolean;
 }
 
-export default function WeatherCard({ icon, date, degrees }: Props) {
+export default function ForecastCard({ icon, date, degrees, showDay }: Props) {
+  let displayDate = showDay
+    ? date.toLocaleDateString("sv-SE", { weekday: "long" })
+    : date.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" });
+
+  if (showDay && date.getDate() === new Date().getDate()) {
+    displayDate = "Idag";
+  }
   const iconUri = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   return (
     <View style={styles.container}>
-      <Text>{date.toLocaleTimeString()}</Text>
+      <Text>{displayDate}</Text>
       <Image style={styles.icon} source={{ uri: iconUri }} />
       <Text style={styles.temp}>{degrees}°</Text>
     </View>
