@@ -1,20 +1,18 @@
-import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
-import SearchBar from "../../components/SearchBar";
-import { useLocation } from "../../hooks/useLocation";
-import { useWeather } from "../../hooks/useWeather";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+
+import { WeatherContext } from "../../WeatherProvider";
+
+import SearchBar from "../../components/SearchBar";
 import WeatherView from "../../components/WeatherView";
 import ForecastsView from "../../components/ForecastsView";
+
 import { Forecast } from "../../types";
 
 export default function Home() {
-  const location = useLocation();
-  const { weatherData, fetchWeatherDataByCity } = useWeather(
-    location?.coords.latitude ?? null,
-    location?.coords.longitude ?? null
-  );
+  const { weatherData, fetchWeatherDataByCity } = useContext(WeatherContext);
 
   function getTodaysForecasts(forecasts: Forecast[]) {
     return forecasts.filter((forecast) => {

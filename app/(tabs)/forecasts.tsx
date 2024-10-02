@@ -1,18 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { WeatherContext } from "../../WeatherProvider";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
-import { useWeather } from "../../hooks/useWeather";
-import { useLocation } from "../../hooks/useLocation";
 import ForecastsView from "../../components/ForecastsView";
 import { Forecast } from "../../types";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Forecasts() {
-  const location = useLocation();
-  const { weatherData } = useWeather(
-    location?.coords.latitude ?? null,
-    location?.coords.longitude ?? null
-  );
+  const { weatherData, fetchWeatherDataByCity } = useContext(WeatherContext);
 
   function getMidDayForecast(forecasts: Forecast[]) {
     return forecasts.filter((item) => item.time.getHours() === 14);
