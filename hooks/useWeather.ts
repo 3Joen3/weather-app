@@ -4,6 +4,7 @@ import { API_KEY } from "@env";
 
 export function useWeather(latitude: number | null, longitude: number | null) {
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -15,14 +16,30 @@ export function useWeather(latitude: number | null, longitude: number | null) {
     })();
   }, [latitude, longitude]);
 
-  //TODO when city isnt found
   async function fetchWeatherDataByCity(city: string) {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=fe215cac13d63320405264414e4fffb4`;
-    const data = await fetch(url).then((response) => response.json());
-    setWeatherData(mapData(data));
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`;
+
+    try {
+      const response = await fetch(url);
+
+      if (response.status === 404) {
+        setErrorMessage(`City ${city} could not be found.`)
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error("Something went wrong fetching weather data.");
+      }
+
+      const data = await response.json();
+      setWeatherData(mapData(data));
+      setErrorMessage("");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  return { weatherData, fetchWeatherDataByCity };
+  return { weatherData, fetchWeatherDataByCity, errorMessage };
 }
 
 function mapData(apiCall: IOpenWeatherResponse): IWeatherData {
