@@ -30,12 +30,19 @@ Kör npm install och sedan npx expo start.
 # RN komponenter som används
 
 StyleSheet
+
 Text
+
 View
+
 Image
+
 ScrollView
+
 TextInput
+
 TouchableOpacity
+
 SafeAreaView
 
 # Expo komponenter som används
