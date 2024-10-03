@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
-import { Forecast } from "../types";
+import { Forecast } from "../types/types";
 import ForecastCard from "./ForecastCard";
 
 interface Props {
