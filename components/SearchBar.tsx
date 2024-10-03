@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { WeatherContext } from "../WeatherProvider";
 import {
   View,
   TextInput,
@@ -15,14 +16,9 @@ interface Props {
 
 export default function SearchBar({ placeholder, onSubmit }: Props) {
   const [inputValue, setInputValue] = useState("");
-  const [error, setError] = useState("");
+  const { errorMessage } = useContext(WeatherContext);
 
   async function handleSubmit() {
-    if (!inputValue) {
-      setError("Du måste ange en stad.");
-      return;
-    }
-    setError("");
     await onSubmit(inputValue);
     setInputValue("");
   }
@@ -42,7 +38,7 @@ export default function SearchBar({ placeholder, onSubmit }: Props) {
           <FontAwesome name="search" size={24} color={"white"} />
         </TouchableOpacity>
       </View>
-      {error && <Text style={styles.errorMessage}>{error}</Text>}
+      {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
     </View>
   );
 }

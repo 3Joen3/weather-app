@@ -7,6 +7,7 @@ import { useLocation } from "./hooks/useLocation";
 interface ContextValue {
   weatherData: IWeatherData;
   fetchWeatherDataByCity: (city: string) => Promise<void>;
+  errorMessage: string;
 }
 
 interface WeatherProviderProps {
@@ -18,13 +19,15 @@ export const WeatherContext = createContext<ContextValue>({} as ContextValue);
 export default function WeatherProvider({ children }: WeatherProviderProps) {
   const location = useLocation();
 
-  const { weatherData, fetchWeatherDataByCity } = useWeather(
+  const { weatherData, fetchWeatherDataByCity, errorMessage } = useWeather(
     location?.coords.latitude ?? null,
     location?.coords.longitude ?? null
   );
 
   return (
-    <WeatherContext.Provider value={{ weatherData, fetchWeatherDataByCity }}>
+    <WeatherContext.Provider
+      value={{ weatherData, fetchWeatherDataByCity, errorMessage }}
+    >
       {children}
     </WeatherContext.Provider>
   );
