@@ -9,7 +9,7 @@ import SearchBar from "../../components/SearchBar";
 import WeatherView from "../../components/WeatherView";
 import ForecastsView from "../../components/ForecastsView";
 
-import { Forecast } from "../../types";
+import { Forecast } from "../../types/types";
 
 export default function Home() {
   const { weatherData, fetchWeatherDataByCity } = useContext(WeatherContext);
@@ -18,18 +18,6 @@ export default function Home() {
     return forecasts.filter((forecast) => {
       const today = new Date();
       return forecast.time.toLocaleDateString() === today.toLocaleDateString();
-    });
-  }
-
-  function getForecastsForNextDay(forecasts: Forecast[]) {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-
-    return forecasts.filter((forecast) => {
-      return (
-        forecast.time.toLocaleDateString() === tomorrow.toLocaleDateString()
-      );
     });
   }
 
