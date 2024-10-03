@@ -15,6 +15,7 @@ export default function ForecastsView({ forecasts, showDay = false }: Props) {
         forecasts.map((item, index) => (
           <ForecastCard
             key={index}
+            id={item.id}
             icon={item.iconUrl}
             date={item.time}
             degrees={item.degreesCelsius}

@@ -1,15 +1,12 @@
 import React, { useContext } from "react";
-import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-
 import { WeatherContext } from "../../WeatherProvider";
-
 import SearchBar from "../../components/SearchBar";
 import WeatherView from "../../components/WeatherView";
 import ForecastsView from "../../components/ForecastsView";
-
 import { Forecast } from "../../types/types";
+import globalStyles from "../../styles/global";
 
 export default function Home() {
   const { weatherData, fetchWeatherDataByCity } = useContext(WeatherContext);
@@ -24,9 +21,9 @@ export default function Home() {
   return (
     <LinearGradient
       colors={["#E4E5E6", "#00416A"]}
-      style={StyleSheet.absoluteFill}
+      style={globalStyles.gradient}
     >
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={globalStyles.pageContainer}>
         <SearchBar placeholder="Sök Stad" onSubmit={fetchWeatherDataByCity} />
         {weatherData && (
           <WeatherView
@@ -45,12 +42,3 @@ export default function Home() {
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 14,
-    gap: 50,
-  },
-});

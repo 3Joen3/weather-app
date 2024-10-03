@@ -26,6 +26,7 @@ export interface IWeatherData {
 }
 
 export interface Forecast {
+  id: string;
   time: Date;
   degreesCelsius: number;
   description: string;

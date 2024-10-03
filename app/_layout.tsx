@@ -17,6 +17,7 @@ export default function StackLayout() {
     <WeatherProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="forecasts/[id]" options={{ headerShown: false }} />
       </Stack>
     </WeatherProvider>
   );

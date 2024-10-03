@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IOpenWeatherResponse, IWeatherData } from "../types";
 import { API_KEY } from "@env";
+import { DailyForecast, Forecast } from "../types/types";
 
 export function useWeather(latitude: number | null, longitude: number | null) {
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
@@ -17,9 +18,7 @@ export function useWeather(latitude: number | null, longitude: number | null) {
   }, [latitude, longitude]);
 
   async function fetchWeatherDataByCity(city: string) {
-
-    if(!city)
-    {
+    if (!city) {
       setErrorMessage("You need to provide a search term.");
       return;
     }
@@ -30,7 +29,7 @@ export function useWeather(latitude: number | null, longitude: number | null) {
       const response = await fetch(url);
 
       if (response.status === 404) {
-        setErrorMessage(`City ${city} could not be found.`)
+        setErrorMessage(`City ${city} could not be found.`);
         return;
       }
 
@@ -52,7 +51,8 @@ export function useWeather(latitude: number | null, longitude: number | null) {
 function mapData(apiCall: IOpenWeatherResponse): IWeatherData {
   return {
     city: apiCall.city.name,
-    forecasts: apiCall.list.map((apiForecast) => ({
+    forecasts: apiCall.list.map((apiForecast, index: number) => ({
+      id: index.toString(),
       time: new Date(apiForecast.dt * 1000),
       degreesCelsius: Math.round((apiForecast.main.temp - 273.15) / 0.5) * 0.5,
       description: apiForecast.weather[0].description,

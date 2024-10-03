@@ -1,14 +1,27 @@
+import { useRouter } from "expo-router";
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 
 interface Props {
+  id: string;
   icon: string;
   date: Date;
   degrees: number;
   showDay: boolean;
 }
 
-export default function ForecastCard({ icon, date, degrees, showDay }: Props) {
+export default function ForecastCard({
+  icon,
+  date,
+  degrees,
+  showDay,
+  id,
+}: Props) {
+  const router = useRouter();
+  function handlePress(id: string) {
+    router.push(`/forecasts/${id}`);
+  }
+
   let displayDate = showDay
     ? date.toLocaleDateString("sv-SE", { weekday: "long" })
     : date.toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" });
@@ -18,11 +31,13 @@ export default function ForecastCard({ icon, date, degrees, showDay }: Props) {
   }
   const iconUri = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   return (
-    <View style={styles.container}>
-      <Text>{displayDate}</Text>
-      <Image style={styles.icon} source={{ uri: iconUri }} />
-      <Text style={styles.temp}>{degrees}°</Text>
-    </View>
+    <Pressable onPress={() => showDay && handlePress(id)}>
+      <View style={styles.container}>
+        <Text>{displayDate}</Text>
+        <Image style={styles.icon} source={{ uri: iconUri }} />
+        <Text style={styles.temp}>{degrees}°</Text>
+      </View>
+    </Pressable>
   );
 }
 
