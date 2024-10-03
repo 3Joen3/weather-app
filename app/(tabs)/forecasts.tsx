@@ -5,10 +5,19 @@ import { StyleSheet, Text } from "react-native";
 import ForecastsView from "../../components/ForecastsView";
 import { Forecast } from "../../types/types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFonts } from "expo-font";
 
 export default function Forecasts() {
   const { weatherData, fetchWeatherDataByCity } = useContext(WeatherContext);
 
+  const [fontsLoaded] = useFonts({
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return undefined;
+  }
   function getMidDayForecast(forecasts: Forecast[]) {
     return forecasts.filter((item) => item.time.getHours() === 14);
   }
@@ -41,10 +50,10 @@ const styles = StyleSheet.create({
   },
   heading: {
     color: "white",
-    fontWeight: "bold",
     fontSize: 40,
     textShadowColor: "black",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 6,
+    fontFamily: "Poppins-Bold",
   },
 });

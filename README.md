@@ -42,6 +42,7 @@ SafeAreaView
 
 https://docs.expo.dev/versions/latest/sdk/location/
 https://docs.expo.dev/versions/latest/sdk/linear-gradient/
+https://docs.expo.dev/versions/latest/sdk/font/
 
 # Extrena bibliotek som används
 
