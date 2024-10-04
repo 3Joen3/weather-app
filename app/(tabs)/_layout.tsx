@@ -32,6 +32,17 @@ export default function _layout() {
           headerShown: false,
         }}
       />
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          tabBarLabel: "Favorites",
+          headerTitle: "Favorites",
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="heart" size={24} color="black" />
+          ),
+          headerShown: false,
+        }}
+      />
     </Tabs>
   );
 }
