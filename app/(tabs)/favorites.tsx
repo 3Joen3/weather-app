@@ -13,14 +13,16 @@ export default function Favorites() {
   const [errorMessage, setErrorMessage] = useState("");
   const [inputValue, setInputValue] = useState("");
 
+  function handleAdd(item: string) {
+    addItem(item);
+    setErrorMessage("");
+    setInputValue("");
+  }
+
   async function handleError(errorMessage: string, city: string) {
     setErrorMessage(errorMessage);
     console.log(items);
     await removeItemByName(city);
-  }
-
-  function handleSuccess() {
-    setErrorMessage("");
   }
 
   useEffect(() => {
@@ -40,18 +42,13 @@ export default function Favorites() {
           onChangeText={setInputValue}
           placeholder="Lägg till"
         />
-        <Pressable onPress={() => addItem(inputValue)}>
+        <Pressable onPress={() => handleAdd(inputValue)}>
           <Text>Lägg till</Text>
         </Pressable>
 
         <ScrollView style={styles.container}>
           {items.map((city, index) => (
-            <FavoriteCard
-              onSuccess={handleSuccess}
-              onError={handleError}
-              key={index}
-              city={city}
-            />
+            <FavoriteCard onError={handleError} key={index} city={city} />
           ))}
         </ScrollView>
       </SafeAreaView>
