@@ -39,7 +39,12 @@ export default function Favorites() {
 
         <ScrollView style={globalStyles.forecastsContainer}>
           {items.map((city, index) => (
-            <FavoriteCard onError={handleError} key={index} city={city} />
+            <FavoriteCard
+              onRemove={removeItemByName}
+              onError={handleError}
+              key={index}
+              city={city}
+            />
           ))}
         </ScrollView>
       </SafeAreaView>

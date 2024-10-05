@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import { useWeather } from "../hooks/useWeather";
 import ForecastCard from "./ForecastCard";
 import globalStyles from "../styles/global";
@@ -7,9 +7,10 @@ import globalStyles from "../styles/global";
 interface Props {
   city: string;
   onError: (errorMessage: string, city: string) => void;
+  onRemove: (cityName: string) => void;
 }
 
-export default function FavoriteCard({ city, onError }: Props) {
+export default function FavoriteCard({ city, onError, onRemove }: Props) {
   const { fetchWeatherDataByCity, weatherData, errorMessage } = useWeather(
     null,
     null
@@ -28,29 +29,42 @@ export default function FavoriteCard({ city, onError }: Props) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       {weatherData && (
-        <Text style={[globalStyles.text, globalStyles.shadowText, styles.text]}>
-          {weatherData.city}
-        </Text>
-      )}
-
-      {weatherData && (
-        <ForecastCard
-          id={weatherData.forecasts[0].id}
-          icon={weatherData.forecasts[0].iconUrl}
-          date={weatherData.forecasts[0].time}
-          degrees={weatherData.forecasts[0].degreesCelsius}
-          showDay={false}
-        />
+        <>
+          <View style={styles.topContainer}>
+            <Text style={[globalStyles.text, globalStyles.shadowText]}>
+              {weatherData.city}
+            </Text>
+            <Pressable
+              onPressIn={() => console.log("HEre")}
+              onPress={() => onRemove(weatherData.city)}
+            >
+              <Text>Ta bort</Text>
+            </Pressable>
+          </View>
+          <ForecastCard
+            id={weatherData.forecasts[0].id}
+            icon={weatherData.forecasts[0].iconUrl}
+            date={weatherData.forecasts[0].time}
+            degrees={weatherData.forecasts[0].degreesCelsius}
+            showDay={false}
+          />
+        </>
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    textAlign: "center",
-    marginBottom: 10,
+  container: {
+    gap: 10,
   },
+  topContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 4,
+  },
+  button: {},
 });
