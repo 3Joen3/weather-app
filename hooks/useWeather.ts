@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { IOpenWeatherResponse, IWeatherData } from "../types/types";
+import {
+  ICurrentWeatherResponse,
+  IOpenWeatherResponse,
+  IWeatherData,
+} from "../types/types";
 import { API_KEY } from "@env";
 
 export function useWeather(latitude: number | null, longitude: number | null) {
@@ -16,13 +20,18 @@ export function useWeather(latitude: number | null, longitude: number | null) {
     })();
   }, [latitude, longitude]);
 
-  async function fetchWeatherDataByCity(city: string) {
+  async function fetchWeatherDataByCity(
+    city: string,
+    needsCurrentWeather: boolean = false
+  ) {
     if (!city) {
       setErrorMessage("You need to provide a search term.");
       return;
     }
 
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`;
+    const url = needsCurrentWeather
+      ? `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
+      : `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`;
 
     try {
       const response = await fetch(url);
@@ -37,7 +46,9 @@ export function useWeather(latitude: number | null, longitude: number | null) {
       }
 
       const data = await response.json();
-      setWeatherData(mapData(data));
+      setWeatherData(
+        needsCurrentWeather ? mapCurrenWeather(data) : mapData(data)
+      );
       setErrorMessage("");
     } catch (error) {
       console.error(error);
@@ -57,5 +68,20 @@ function mapData(apiCall: IOpenWeatherResponse): IWeatherData {
       description: apiForecast.weather[0].description,
       iconUrl: `https://openweathermap.org/img/wn/${apiForecast.weather[0].icon}@2x.png`,
     })),
+  };
+}
+
+function mapCurrenWeather(apiCall: ICurrentWeatherResponse) {
+  return {
+    city: apiCall.name,
+    forecasts: [
+      {
+        id: "1",
+        time: new Date(apiCall.dt * 1000),
+        degreesCelsius: Math.round((apiCall.main.temp - 273.15) / 0.5) * 0.5,
+        description: apiCall.weather[0].description,
+        iconUrl: `https://openweathermap.org/img/wn/${apiCall.weather[0].icon}@2x.png`,
+      },
+    ],
   };
 }

@@ -6,7 +6,10 @@ import { useLocation } from "./hooks/useLocation";
 
 interface ContextValue {
   weatherData: IWeatherData | null;
-  fetchWeatherDataByCity: (city: string) => Promise<void>;
+  fetchWeatherDataByCity: (
+    city: string,
+    needsCurrentWeather?: boolean
+  ) => Promise<void>;
   errorMessage: string;
 }
 
