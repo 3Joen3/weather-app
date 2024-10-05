@@ -5,13 +5,26 @@ import ForecastCard from "./ForecastCard";
 
 interface Props {
   city: string;
+  onError: (errorMessage: string, city: string) => void;
 }
 
-export default function FavoriteCard({ city }: Props) {
-  const { fetchWeatherDataByCity, weatherData } = useWeather(null, null);
+export default function FavoriteCard({ city, onError }: Props) {
+  const { fetchWeatherDataByCity, weatherData, errorMessage } = useWeather(
+    null,
+    null
+  );
+
   useEffect(() => {
     fetchWeatherDataByCity(city, true);
-  }, []);
+
+    if (errorMessage) {
+      onError(errorMessage, city);
+    }
+  }, [errorMessage]);
+
+  if (errorMessage) {
+    return null;
+  }
 
   return (
     <View>

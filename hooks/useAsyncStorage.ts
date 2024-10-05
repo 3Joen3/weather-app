@@ -19,10 +19,7 @@ export default function useAsyncStorage(key: string, initialValue: string[]) {
 
   async function addItem(newItem: string) {
     try {
-      const currentItems = await AsyncStorage.getItem(key);
-      const parsedItems = currentItems ? JSON.parse(currentItems) : [];
-
-      const newItems = [...parsedItems, newItem];
+      const newItems = [...items, newItem];
       await AsyncStorage.setItem(key, JSON.stringify(newItems));
       setItems(newItems);
     } catch (error) {
@@ -30,5 +27,17 @@ export default function useAsyncStorage(key: string, initialValue: string[]) {
     }
   }
 
-  return { items, addItem };
+  async function removeItemByName(city: string) {
+    try {
+      const currentItems = items;
+      const withoutItem = currentItems.filter((item) => item !== city);
+
+      await AsyncStorage.setItem(key, JSON.stringify(withoutItem));
+      setItems(withoutItem);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return { items, addItem, removeItemByName };
 }
