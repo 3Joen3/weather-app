@@ -21,13 +21,8 @@ export default function Favorites() {
 
   async function handleError(errorMessage: string, city: string) {
     setErrorMessage(errorMessage);
-    console.log(items);
     await removeItemByName(city);
   }
-
-  useEffect(() => {
-    console.log("Items uppdaterade:", items);
-  }, [items]);
 
   return (
     <LinearGradient
