@@ -9,7 +9,8 @@ import globalStyles from "../../styles/global";
 import InputBar from "../../components/InputBar";
 
 export default function Home() {
-  const { weatherData, fetchWeatherDataByCity } = useContext(WeatherContext);
+  const { weatherData, fetchWeatherDataByCity, errorMessage } =
+    useContext(WeatherContext);
 
   function getTodaysForecasts(forecasts: Forecast[]) {
     return forecasts.filter((forecast) => {
@@ -24,7 +25,11 @@ export default function Home() {
       style={globalStyles.gradient}
     >
       <SafeAreaView style={globalStyles.pageContainer}>
-        <InputBar placeholder="Sök Stad" onSubmit={fetchWeatherDataByCity} />
+        <InputBar
+          errorMessage={errorMessage}
+          placeholder="Sök Stad"
+          onSubmit={fetchWeatherDataByCity}
+        />
         {weatherData && (
           <WeatherView
             city={weatherData?.city}

@@ -12,12 +12,9 @@ import InputBar from "../../components/InputBar";
 export default function Favorites() {
   const { addItem, items, removeItemByName } = useAsyncStorage("favorites", []);
   const [errorMessage, setErrorMessage] = useState("");
-  const [inputValue, setInputValue] = useState("");
 
   async function handleAdd(city: string) {
     await addItem(city);
-    setErrorMessage("");
-    setInputValue("");
   }
 
   async function handleError(errorMessage: string, city: string) {
@@ -31,12 +28,12 @@ export default function Favorites() {
       colors={["#E4E5E6", "#00416A"]}
     >
       <SafeAreaView style={globalStyles.pageContainer}>
-        {errorMessage && <Text>{errorMessage}</Text>}
         <Text>Favoriter</Text>
         <InputBar
           placeholder="Lägg till favorit"
           isAdd={true}
           onSubmit={handleAdd}
+          errorMessage={errorMessage}
         />
 
         <ScrollView style={styles.container}>

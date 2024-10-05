@@ -13,16 +13,16 @@ interface Props {
   placeholder: string;
   errorMessage: string;
   onSubmit: (searchTerm: string) => Promise<void>;
-  isAdd: boolean;
+  isAdd?: boolean;
 }
 
 export default function InputBar({
   placeholder,
   onSubmit,
   isAdd = false,
+  errorMessage,
 }: Props) {
   const [inputValue, setInputValue] = useState("");
-  const { errorMessage } = useContext(WeatherContext);
 
   async function handleSubmit() {
     await onSubmit(inputValue);
