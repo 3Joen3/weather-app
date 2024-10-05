@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useWeather } from "../hooks/useWeather";
 import ForecastCard from "./ForecastCard";
+import globalStyles from "../styles/global";
 
 interface Props {
   city: string;
@@ -28,7 +29,11 @@ export default function FavoriteCard({ city, onError }: Props) {
 
   return (
     <View>
-      {weatherData && <Text>{weatherData.city}</Text>}
+      {weatherData && (
+        <Text style={[globalStyles.text, globalStyles.shadowText, styles.text]}>
+          {weatherData.city}
+        </Text>
+      )}
 
       {weatherData && (
         <ForecastCard
@@ -44,19 +49,8 @@ export default function FavoriteCard({ city, onError }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    borderRadius: 10,
+  text: {
+    textAlign: "center",
     marginBottom: 10,
-  },
-  icon: {
-    height: 60,
-    width: 60,
-  },
-  temp: {
-    fontWeight: "bold",
   },
 });

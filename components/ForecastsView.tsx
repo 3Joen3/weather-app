@@ -1,7 +1,8 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { Forecast } from "../types/types";
 import ForecastCard from "./ForecastCard";
+import globalStyles from "../styles/global";
 
 interface Props {
   forecasts: Forecast[];
@@ -10,7 +11,7 @@ interface Props {
 
 export default function ForecastsView({ forecasts, showDay = false }: Props) {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={globalStyles.forecastsContainer}>
       {forecasts.length > 0 ? (
         forecasts.map((item, index) => (
           <ForecastCard
@@ -28,11 +29,3 @@ export default function ForecastsView({ forecasts, showDay = false }: Props) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    width: "100%",
-  },
-});
