@@ -7,14 +7,15 @@ import FavoriteCard from "../../components/FavoriteCard";
 
 import globalStyles from "../../styles/global";
 import useAsyncStorage from "../../hooks/useAsyncStorage";
+import InputBar from "../../components/InputBar";
 
 export default function Favorites() {
   const { addItem, items, removeItemByName } = useAsyncStorage("favorites", []);
   const [errorMessage, setErrorMessage] = useState("");
   const [inputValue, setInputValue] = useState("");
 
-  function handleAdd(item: string) {
-    addItem(item);
+  async function handleAdd(city: string) {
+    await addItem(city);
     setErrorMessage("");
     setInputValue("");
   }
@@ -32,14 +33,11 @@ export default function Favorites() {
       <SafeAreaView style={globalStyles.pageContainer}>
         {errorMessage && <Text>{errorMessage}</Text>}
         <Text>Favoriter</Text>
-        <TextInput
-          value={inputValue}
-          onChangeText={setInputValue}
-          placeholder="Lägg till"
+        <InputBar
+          placeholder="Lägg till favorit"
+          isAdd={true}
+          onSubmit={handleAdd}
         />
-        <Pressable onPress={() => handleAdd(inputValue)}>
-          <Text>Lägg till</Text>
-        </Pressable>
 
         <ScrollView style={styles.container}>
           {items.map((city, index) => (

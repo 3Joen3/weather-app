@@ -7,14 +7,20 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 interface Props {
   placeholder: string;
+  errorMessage: string;
   onSubmit: (searchTerm: string) => Promise<void>;
+  isAdd: boolean;
 }
 
-export default function SearchBar({ placeholder, onSubmit }: Props) {
+export default function InputBar({
+  placeholder,
+  onSubmit,
+  isAdd = false,
+}: Props) {
   const [inputValue, setInputValue] = useState("");
   const { errorMessage } = useContext(WeatherContext);
 
@@ -35,7 +41,11 @@ export default function SearchBar({ placeholder, onSubmit }: Props) {
           value={inputValue}
         />
         <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-          <FontAwesome name="search" size={24} color={"white"} />
+          {isAdd ? (
+            <Ionicons name="add" size={24} color="white" />
+          ) : (
+            <Ionicons name="search-sharp" size={24} color="white" />
+          )}
         </TouchableOpacity>
       </View>
       {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
