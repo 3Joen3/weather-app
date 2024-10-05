@@ -55,7 +55,7 @@ function mapData(apiCall: IOpenWeatherResponse): IWeatherData {
       time: new Date(apiForecast.dt * 1000),
       degreesCelsius: Math.round((apiForecast.main.temp - 273.15) / 0.5) * 0.5,
       description: apiForecast.weather[0].description,
-      iconUrl: apiForecast.weather[0].icon,
+      iconUrl: `https://openweathermap.org/img/wn/${apiForecast.weather[0].icon}@2x.png`,
     })),
   };
 }

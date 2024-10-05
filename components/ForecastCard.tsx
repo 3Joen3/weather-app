@@ -29,12 +29,12 @@ export default function ForecastCard({
   if (showDay && date.getDate() === new Date().getDate()) {
     displayDate = "Idag";
   }
-  const iconUri = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+
   return (
     <Pressable onPress={() => showDay && handlePress(id)}>
       <View style={styles.container}>
         <Text>{displayDate}</Text>
-        <Image style={styles.icon} source={{ uri: iconUri }} />
+        <Image style={styles.icon} source={{ uri: icon }} />
         <Text style={styles.temp}>{degrees}°</Text>
       </View>
     </Pressable>

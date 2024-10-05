@@ -16,7 +16,6 @@ export default function WeatherView({
   description,
   icon,
 }: Props) {
-  const iconUri = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   return (
     <View style={styles.container}>
       <View style={styles.locationContainer}>
@@ -26,7 +25,7 @@ export default function WeatherView({
         </Text>
       </View>
       <View style={styles.weatherContainer}>
-        <Image style={styles.icon} source={{ uri: iconUri }} />
+        <Image style={styles.icon} source={{ uri: icon }} />
         <Text style={[globalStyles.heading, globalStyles.shadowText]}>
           {degrees}
         </Text>
