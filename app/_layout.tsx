@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Stack } from "expo-router";
 import WeatherProvider from "../WeatherProvider";
 import { useFonts } from "expo-font";
+import { SplashScreen } from "expo-router";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function StackLayout() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, error] = useFonts({
     "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
   });
 
-  if (!fontsLoaded) {
-    return undefined;
+  useEffect(() => {
+    if (fontsLoaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, error]);
+
+  if (!fontsLoaded && !error) {
+    return null;
   }
 
   return (

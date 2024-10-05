@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { IOpenWeatherResponse, IWeatherData } from "../types";
+import { IOpenWeatherResponse, IWeatherData } from "../types/types";
 import { API_KEY } from "@env";
-import { DailyForecast, Forecast } from "../types/types";
 
 export function useWeather(latitude: number | null, longitude: number | null) {
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);

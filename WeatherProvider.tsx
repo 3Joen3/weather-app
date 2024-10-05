@@ -5,7 +5,7 @@ import { useWeather } from "./hooks/useWeather";
 import { useLocation } from "./hooks/useLocation";
 
 interface ContextValue {
-  weatherData: IWeatherData;
+  weatherData: IWeatherData | null;
   fetchWeatherDataByCity: (city: string) => Promise<void>;
   errorMessage: string;
 }
