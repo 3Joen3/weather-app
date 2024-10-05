@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { WeatherContext } from "../WeatherProvider";
+import React, { useState } from "react";
 import {
   View,
   TextInput,
