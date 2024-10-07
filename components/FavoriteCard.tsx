@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { useWeather } from "../hooks/useWeather";
 import ForecastCard from "./ForecastCard";
 import globalStyles from "../styles/global";
 
 interface Props {
   city: string;
-  onError: (errorMessage: string, city: string) => void;
+  id: string;
+  onNotFound: (city: string) => void;
   onRemove: (cityName: string) => void;
 }
 
-export default function FavoriteCard({ city, onError, onRemove }: Props) {
-  const { fetchWeatherDataByCity, weatherData, errorMessage } = useWeather(
+export default function FavoriteCard({
+  id,
+  city,
+  onNotFound,
+  onRemove,
+}: Props) {
+  const { fetchWeatherDataByCity, weatherData, errorCode } = useWeather(
     null,
     null
   );
@@ -19,12 +25,12 @@ export default function FavoriteCard({ city, onError, onRemove }: Props) {
   useEffect(() => {
     fetchWeatherDataByCity(city, true);
 
-    if (errorMessage) {
-      onError(errorMessage, city);
+    if (errorCode === 404) {
+      onNotFound(city);
     }
-  }, [errorMessage]);
+  }, [errorCode]);
 
-  if (errorMessage) {
+  if (errorCode === 404) {
     return null;
   }
 
@@ -36,12 +42,9 @@ export default function FavoriteCard({ city, onError, onRemove }: Props) {
             <Text style={[globalStyles.text, globalStyles.shadowText]}>
               {weatherData.city}
             </Text>
-            <Pressable
-              onPressIn={() => console.log("HEre")}
-              onPress={() => onRemove(weatherData.city)}
-            >
+            <TouchableOpacity onPress={() => onRemove(id)}>
               <Text>Ta bort</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <ForecastCard
             id={weatherData.forecasts[0].id}
@@ -66,5 +69,4 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 4,
   },
-  button: {},
 });

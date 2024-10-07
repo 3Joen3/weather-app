@@ -1,7 +1,8 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { HeartIcon } from "react-native-heroicons/outline";
+import { SunIcon } from "react-native-heroicons/outline";
+import { CalendarDaysIcon } from "react-native-heroicons/outline";
 
 export default function _layout() {
   return (
@@ -11,9 +12,7 @@ export default function _layout() {
         options={{
           tabBarLabel: "Today",
           headerTitle: "Home",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="home" size={24} color="black" />
-          ),
+          tabBarIcon: ({ color }) => <SunIcon size={24} color={"black"} />,
           headerShown: false,
         }}
       />
@@ -23,11 +22,7 @@ export default function _layout() {
           tabBarLabel: "Forecasts",
           headerTitle: "Forecasts",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="weather-sunset"
-              size={24}
-              color="black"
-            />
+            <CalendarDaysIcon size={24} color={"black"} />
           ),
           headerShown: false,
         }}
@@ -37,9 +32,7 @@ export default function _layout() {
         options={{
           tabBarLabel: "Favorites",
           headerTitle: "Favorites",
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="heart" size={24} color="black" />
-          ),
+          tabBarIcon: ({ color }) => <HeartIcon color={"black"} size={24} />,
           headerShown: false,
         }}
       />

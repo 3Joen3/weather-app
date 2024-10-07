@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { WeatherContext } from "../../WeatherProvider";
+import { WeatherContext } from "../../context/WeatherProvider";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text } from "react-native";
 import ForecastsView from "../../components/ForecastsView";

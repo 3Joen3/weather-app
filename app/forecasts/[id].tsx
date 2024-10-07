@@ -4,9 +4,9 @@ import { useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import globalStyles from "../../styles/global";
-import { WeatherContext } from "../../WeatherProvider";
 import { Forecast } from "../../types/types";
 import ForecastsView from "../../components/ForecastsView";
+import { WeatherContext } from "../../context/WeatherProvider";
 
 export default function ForeCastDetails() {
   const { weatherData } = useContext(WeatherContext);

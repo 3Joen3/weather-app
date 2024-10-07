@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import globalStyles from "../styles/global";
-import Entypo from "@expo/vector-icons/Entypo";
+import { MapPinIcon } from "react-native-heroicons/solid";
 
 interface Props {
   city: string;
@@ -10,16 +10,11 @@ interface Props {
   icon: string;
 }
 
-export default function WeatherView({
-  city,
-  degrees,
-  description,
-  icon,
-}: Props) {
+export default function WeatherView({ city, degrees, icon }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.locationContainer}>
-        <Entypo name="location-pin" size={40} color="black" />
+        <MapPinIcon size={30} color={"black"} />
         <Text style={[globalStyles.shadowText, globalStyles.heading]}>
           {city}
         </Text>

@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { MagnifyingGlassIcon as SearchIcon } from "react-native-heroicons/outline";
+import { PlusIcon } from "react-native-heroicons/outline";
 
 interface Props {
   placeholder: string;
-  errorMessage: string;
+  errorMessage?: string;
   onSubmit: (searchTerm: string) => Promise<void>;
   isAdd?: boolean;
 }
@@ -24,7 +25,10 @@ export default function InputBar({
   const [inputValue, setInputValue] = useState("");
 
   async function handleSubmit() {
-    await onSubmit(inputValue);
+    if (!inputValue) {
+      return;
+    }
+    await onSubmit(inputValue.trim());
     setInputValue("");
   }
 
@@ -41,9 +45,9 @@ export default function InputBar({
         />
         <TouchableOpacity onPress={handleSubmit} style={styles.button}>
           {isAdd ? (
-            <Ionicons name="add" size={24} color="white" />
+            <PlusIcon size={24} color={"white"} />
           ) : (
-            <Ionicons name="search-sharp" size={24} color="white" />
+            <SearchIcon size={24} color={"white"} />
           )}
         </TouchableOpacity>
       </View>

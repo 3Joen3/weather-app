@@ -8,7 +8,7 @@ import { API_KEY } from "@env";
 
 export function useWeather(latitude: number | null, longitude: number | null) {
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorCode, setErrorCode] = useState<number | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -25,7 +25,7 @@ export function useWeather(latitude: number | null, longitude: number | null) {
     needsCurrentWeather: boolean = false
   ) {
     if (!city) {
-      setErrorMessage("You need to provide a search term.");
+      console.log("Need city to search weather.");
       return;
     }
 
@@ -37,7 +37,7 @@ export function useWeather(latitude: number | null, longitude: number | null) {
       const response = await fetch(url);
 
       if (response.status === 404) {
-        setErrorMessage(`City ${city} could not be found.`);
+        setErrorCode(404);
         return;
       }
 
@@ -49,13 +49,13 @@ export function useWeather(latitude: number | null, longitude: number | null) {
       setWeatherData(
         needsCurrentWeather ? mapCurrenWeather(data) : mapData(data)
       );
-      setErrorMessage("");
+      setErrorCode(null);
     } catch (error) {
       console.error(error);
     }
   }
 
-  return { weatherData, fetchWeatherDataByCity, errorMessage };
+  return { weatherData, fetchWeatherDataByCity, errorCode };
 }
 
 function mapData(apiCall: IOpenWeatherResponse): IWeatherData {

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Stack } from "expo-router";
-import WeatherProvider from "../WeatherProvider";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
+import WeatherProvider from "../context/WeatherProvider";
 
 SplashScreen.preventAutoHideAsync();
 
