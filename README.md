@@ -66,6 +66,7 @@ https://docs.expo.dev/versions/latest/sdk/async-storage/
 # Extrena bibliotek som används
 
 https://www.npmjs.com/package/react-native-heroicons
+
 https://www.npmjs.com/package/react-native-dotenv
 
 # Apier som används
